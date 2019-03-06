@@ -72,9 +72,31 @@
 
         };
 
-        function setDayCells( targetObj, settings ){
+        function setDayCells( targetObj, refDate ){
 
-            var html = settings.refDate + 'eee';
+            var f_inicio = moment( refDate, settings.format ).subtract(15, 'days'),
+                f_fin    = moment( refDate, settings.format ).add(15, 'days'),
+                f_aux = '',
+                dia = '',
+                mes = '';
+
+            var html = ''; 
+
+            for( var i= 0; i<30; i++){
+
+                f_aux = moment( f_inicio ).add(i, 'days');
+
+                dia = f_aux.format('DD');
+                mes = f_aux.lang('es').format('MMM');
+
+                html += [
+                    '<td>',
+                        '<span class="dia">' + dia + '</span>',
+                        '<span class="mes">' + mes + '</span>',
+                    '</td>'
+                ].join('');
+
+            }
 
             targetObj.find('#rescalendar_day_cells').html( html );
 
@@ -84,6 +106,7 @@
         var settings = $.extend({
             id           : 'rescalendar',
             refDate      : '',
+            format       : 'DD/MM/YYYY',
             url_spinner  : 'img/spinner.gif',
             url_upload   : 'upload.php',
             src: '',
@@ -122,10 +145,15 @@
                             '<button id="move_to_next_month"> >> </button>',
                         '</div>',
 
-                        '<div id="rescalendar_day_cells">',
-                            '<p>day cellsssss</p>',
-                        '</div>',
-
+                        '<table class="rescalendar_table">',
+                            '<thead>',
+                                '<tr id="rescalendar_day_cells"></tr>',
+                            '</thead>',
+                            '<tbody id="filas">',
+                                
+                            '</tbody>',
+                        '</table>',
+                        
                     '</div>',
 
                 ].join('');
@@ -143,7 +171,7 @@
 
             set_template( targetObj, settings);
 
-            setDayCells( targetObj, settings );
+            setDayCells( targetObj, settings.refDate );
 
             /*
             var objInputFile     = targetObj.find('input[type="file"]'),

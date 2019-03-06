@@ -43,6 +43,10 @@ describe( 'REScalendar test', function() {
 
 			cy.get('#rescalendar_day_cells').should('be.visible');
 
+			expect( Cypress.$('#rescalendar_day_cells td').length ).to.equal(30);
+
+			cy.get('#rescalendar_day_cells .today').should('be.visible');
+
 
 		});
 
