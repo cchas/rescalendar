@@ -92,7 +92,7 @@
 
                 dia = f_aux.format('DD');
                 mes = f_aux.lang('es').format('MMM').replace('.','');
-
+                
                 if( f_aux.format( settings.format ) == today.format( settings.format ) ){
                     clase_today = 'today';
                 }else{
@@ -105,10 +105,8 @@
                     clase_middleDay = '';
                 }
 
-
-
                 html += [
-                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '">',
+                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux.format( settings.format ) + '">',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
                     '</td>'
@@ -118,6 +116,18 @@
 
             targetObj.find('#rescalendar_day_cells').html( html );
 
+
+            day_cell           = targetObj.find('td.day_cell');
+
+            day_cell.on('click', function(e){
+            
+                var cellDate = e.currentTarget.attributes['data-cellDate'].value;
+
+                targetObj.find('#refDate').val( cellDate );
+
+                setDayCells( targetObj, moment(cellDate, settings.format) );
+
+            });
         }
 
         // INITIALIZATION
@@ -243,6 +253,8 @@
                 change_day( targetObj, 'add', 15);
 
             });
+
+
 
             return this;
 

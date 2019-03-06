@@ -26,3 +26,9 @@
 #rescalendar_day_cells td.middleDay{
 	outline: 1px solid blue;
 }
+
+#rescalendar_day_cells td:hover{
+	background: #eee;
+	cursor: pointer;
+	color: #000;
+}
