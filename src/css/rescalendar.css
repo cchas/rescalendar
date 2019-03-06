@@ -10,9 +10,15 @@
 #rescalendar_day_cells span{
 	display: block;
 	width: 30px;
+	padding: 5px;
 }
 
 #rescalendar_day_cells span.day{
 	display: block;
 	width: 30px;
+}
+
+#rescalendar_day_cells td.today{
+	background: red;
+	color: #fff;
 }

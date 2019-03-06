@@ -76,9 +76,13 @@
 
             var f_inicio = moment( refDate, settings.format ).subtract(15, 'days'),
                 f_fin    = moment( refDate, settings.format ).add(15, 'days'),
+                today    = moment( ).startOf('day'),
                 f_aux = '',
                 dia = '',
-                mes = '';
+                mes = '',
+                clase_today = '';
+
+            console.log(today, 'today');
 
             var html = ''; 
 
@@ -87,10 +91,16 @@
                 f_aux = moment( f_inicio ).add(i, 'days');
 
                 dia = f_aux.format('DD');
-                mes = f_aux.lang('es').format('MMM');
+                mes = f_aux.lang('es').format('MMM').replace('.','');
+
+                if( f_aux.format( settings.format ) == today.format( settings.format ) ){
+                    clase_today = 'today';
+                }else{
+                    clase_today = '';
+                }
 
                 html += [
-                    '<td>',
+                    '<td class="day_cell ' + clase_today + '">',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
                     '</td>'
@@ -195,6 +205,12 @@
 
             });
             */
+
+            var move_to_yesterday = targetObj.find('button#move_to_yesterday');
+
+            move_to_yesterday.on('click', function(){
+                console.log('Move to yesterday');
+            });
 
             return this;
 
