@@ -82,8 +82,6 @@
                 mes = '',
                 clase_today = '';
 
-            console.log(today, 'today');
-
             var html = ''; 
 
             for( var i= 0; i<30; i++){
@@ -183,6 +181,7 @@
 
             setDayCells( targetObj, settings.refDate );
 
+            
             /*
             var objInputFile     = targetObj.find('input[type="file"]'),
                 link_clear_image = targetObj.find('a.clear_image');
@@ -206,15 +205,56 @@
             });
             */
 
-            var move_to_yesterday = targetObj.find('button#move_to_yesterday');
+            var move_to_last_month = targetObj.find('#move_to_last_month'),
+                move_to_yesterday  = targetObj.find('#move_to_yesterday'),
+                move_to_tomorrow   = targetObj.find('#move_to_tomorrow'),
+                move_to_next_month = targetObj.find('#move_to_next_month');
 
-            move_to_yesterday.on('click', function(){
-                console.log('Move to yesterday');
+            move_to_last_month.on('click', function(e){
+                
+                change_day( targetObj, 'subtract', 15);
+
+            });
+
+            move_to_yesterday.on('click', function(e){
+                
+                change_day( targetObj, 'subtract', 1);
+
+            });
+
+            move_to_tomorrow.on('click', function(e){
+                
+                change_day( targetObj, 'add', 1);
+
+            });
+
+            move_to_next_month.on('click', function(e){
+                
+                change_day( targetObj, 'add', 15);
+
             });
 
             return this;
 
         });
+
+        function change_day( targetObj, action, num_days ){
+
+            var refDate = targetObj.find('#refDate').val(),
+                f_ref = '';
+
+            if( action == 'subtract'){
+                f_ref = moment( refDate, settings.format ).subtract(num_days, 'days');    
+            }else{
+                f_ref = moment( refDate, settings.format ).add(num_days, 'days');   
+            }
+            
+
+            targetObj.find('#refDate').val( f_ref.format( settings.format ) );
+
+            setDayCells( targetObj, f_ref );
+
+        }
 
 
         
