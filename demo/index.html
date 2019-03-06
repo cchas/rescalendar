@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Jquery based horizontal calendar plugin</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../src/css/res_calendar.css">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+		
+        <meta http-equiv="Cache-Control" content="no-store" />
+
+        <style>
+            
+            body{
+                text-align: center;
+            }
+
+            .my_image_wrapper{
+                width: 100%;
+                max-width: 960px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        
+        <h4>JQUERY Horizontal Calendar</h4>
+        <div class="res_calendar" id="my_calendar1"></div>
+        <br><br>
+    
+        <!--
+        <h4>DIV2.- simple instantiation</h4>
+        <div class="res_calendar" id="my_image2"></div>
+        <br><br>
+        
+        <h4>DIV3.- With initializing with an image</h4>
+        <div id="my_image3"></div>
+		<br><br>
+        
+        <h4>DIV4.- With data to be sent with the form</h4>
+        <div id="my_image4"></div>
+        <br><br>
+        
+        <h4>DIV5.- With styling options</h4>
+        <div id="my_image5"></div>
+        <br><br>
+        -->
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="../src/js/res_calendar.js"></script>
+        
+        <script>
+            
+            $(function(){
+
+                // Multiple instantiation (divs 1 and 2)
+                $('.res_calendar').res_calendar();
+
+
+                /*
+                $('#my_image3').res_calendar({
+                    src: 'img/default.png'
+                });
+
+                $('#my_image4').res_calendar({
+                    data: {
+                        data_field_name: 'data_field_value'
+                    }
+                });
+                
+                $('#my_image5').res_calendar({
+                    border_width: 15,
+                    border_color: '#ccc',
+                    button_color: '#155724',
+                    background_color: '#eee'
+                });
+                */
+
+            });
+
+        </script>
+
+    </body>
+
+</html>
