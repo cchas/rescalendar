@@ -74,36 +74,30 @@
 
         function setDayCells( targetObj, refDate ){
 
-            var f_inicio = moment( refDate, settings.format ).subtract(15, 'days'),
-                f_fin    = moment( refDate, settings.format ).add(15, 'days'),
+            var format = settings.format,
+                f_inicio = moment( refDate, format ).subtract(15, 'days'),
+                f_fin    = moment( refDate, format ).add(15, 'days'),
                 today    = moment( ).startOf('day'),
-                f_aux = '',
-                dia = '',
-                mes = '',
-                clase_today = '',
+                html            = '',
+                f_aux           = '',
+                f_aux_format    = '',
+                dia             = '',
+                mes             = '',
+                clase_today     = '',
                 clase_middleDay = '',
-                middleDay = targetObj.find('#refDate').val();
+                middleDay       = targetObj.find('#refDate').val(),
+                blockSize       = settings.jumpSize * 2;
 
-            var html = ''; 
+            for( var i = 0; i< blockSize ; i++){
 
-            for( var i= 0; i<30; i++){
-
-                f_aux = moment( f_inicio ).add(i, 'days');
+                f_aux        = moment( f_inicio ).add(i, 'days');
+                f_aux_format = f_aux.format( format );
 
                 dia = f_aux.format('DD');
                 mes = f_aux.lang('es').format('MMM').replace('.','');
                 
-                if( f_aux.format( settings.format ) == today.format( settings.format ) ){
-                    clase_today = 'today';
-                }else{
-                    clase_today = '';
-                }
-
-                if( f_aux.format( settings.format ) == middleDay ){
-                    clase_middleDay = 'middleDay';
-                }else{
-                    clase_middleDay = '';
-                }
+                f_aux_format == today.format( format ) ? clase_today = 'today' : clase_today = '';
+                f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
 
                 html += [
                     '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux.format( settings.format ) + '">',
@@ -116,8 +110,14 @@
 
             targetObj.find('#rescalendar_day_cells').html( html );
 
+            addTdClickEvent( targetObj );
 
-            day_cell           = targetObj.find('td.day_cell');
+            
+        }
+
+        function addTdClickEvent(targetObj){
+
+            var day_cell = targetObj.find('td.day_cell');
 
             day_cell.on('click', function(e){
             
@@ -128,6 +128,7 @@
                 setDayCells( targetObj, moment(cellDate, settings.format) );
 
             });
+
         }
 
         // INITIALIZATION
@@ -135,6 +136,8 @@
             id           : 'rescalendar',
             refDate      : '',
             format       : 'DD/MM/YYYY',
+            jumpSize     : 15,
+
             url_spinner  : 'img/spinner.gif',
             url_upload   : 'upload.php',
             src: '',
@@ -232,7 +235,7 @@
 
             move_to_last_month.on('click', function(e){
                 
-                change_day( targetObj, 'subtract', 15);
+                change_day( targetObj, 'subtract', settings.jumpSize);
 
             });
 
@@ -250,7 +253,7 @@
 
             move_to_next_month.on('click', function(e){
                 
-                change_day( targetObj, 'add', 15);
+                change_day( targetObj, 'add', settings.jumpSize);
 
             });
 
