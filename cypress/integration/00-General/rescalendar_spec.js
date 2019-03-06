@@ -36,6 +36,8 @@ describe( 'REScalendar test', function() {
 	    	cy.get('#move_to_tomorrow').should('be.visible');
 	    	cy.get('#move_to_next_month').should('be.visible');
 
+	    	cy.get('#move_to_today').should('be.visible');
+	    	
 	    });
 
 

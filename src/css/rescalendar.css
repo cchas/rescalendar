@@ -1,16 +1,28 @@
 /* rescalendar */
-.rescalendar_table{
+.rescalendar{
 	max-width: 1000px;
+	overflow: auto;
+	margin: 0 auto;
+}
+
+.rescalendar_controls input{
+	text-align: center;
+}
+
+.rescalendar_table{
+	padding-top: 10px;
+	margin: 0 auto;
 }
 
 #rescalendar_day_cells td{
-	width: 30px;
+	width: 22px;
 }
 
 #rescalendar_day_cells span{
 	display: block;
-	width: 30px;
-	padding: 5px;
+	padding: 5px 2px;
+	font-size: 14px;
+	width: 22px;
 }
 
 #rescalendar_day_cells span.day{

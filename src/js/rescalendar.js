@@ -88,7 +88,7 @@
                 middleDay       = targetObj.find('#refDate').val(),
                 blockSize       = settings.jumpSize * 2;
 
-            for( var i = 0; i< blockSize ; i++){
+            for( var i = 0; i< (blockSize + 1) ; i++){
 
                 f_aux        = moment( f_inicio ).add(i, 'days');
                 f_aux_format = f_aux.format( format );
@@ -184,6 +184,7 @@
                     '<div class="rescalendar ' , id , '_wrapper">',
 
                         '<div class="rescalendar_controls">',
+
                             '<button id="move_to_last_month"> << </button>',
                             '<button id="move_to_yesterday"> < </button>',
 
@@ -191,6 +192,10 @@
                             
                             '<button id="move_to_tomorrow"> > </button>',
                             '<button id="move_to_next_month"> >> </button>',
+
+                            '<br>',
+                            '<button id="move_to_today"> Hoy </button>',
+
                         '</div>',
 
                         '<table class="rescalendar_table">',
@@ -249,6 +254,7 @@
                 move_to_yesterday  = targetObj.find('#move_to_yesterday'),
                 move_to_tomorrow   = targetObj.find('#move_to_tomorrow'),
                 move_to_next_month = targetObj.find('#move_to_next_month'),
+                move_to_today = targetObj.find('#move_to_today'),
                 refDate = targetObj.find('#refDate');
 
             move_to_last_month.on('click', function(e){
@@ -277,10 +283,18 @@
 
             refDate.on('blur', function(e){
                 
-                var refDate = targetObj.find('#refDate').val(),
-                    f_ref = moment( refDate, settings.format );
-
+                var refDate = targetObj.find('#refDate').val();
                 setDayCells( targetObj, refDate );
+
+            });
+
+            move_to_today.on('click', function(e){
+                
+                var today = moment().startOf('day').format( settings.format );
+
+                targetObj.find('#refDate').val( today );
+
+                setDayCells( targetObj, today );
 
             });
 
