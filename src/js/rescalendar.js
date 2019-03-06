@@ -131,6 +131,23 @@
 
         }
 
+        function change_day( targetObj, action, num_days ){
+
+            var refDate = targetObj.find('#refDate').val(),
+                f_ref = '';
+
+            if( action == 'subtract'){
+                f_ref = moment( refDate, settings.format ).subtract(num_days, 'days');    
+            }else{
+                f_ref = moment( refDate, settings.format ).add(num_days, 'days');
+            }
+            
+            targetObj.find('#refDate').val( f_ref.format( settings.format ) );
+
+            setDayCells( targetObj, f_ref );
+
+        }
+
         // INITIALIZATION
         var settings = $.extend({
             id           : 'rescalendar',
@@ -231,7 +248,8 @@
             var move_to_last_month = targetObj.find('#move_to_last_month'),
                 move_to_yesterday  = targetObj.find('#move_to_yesterday'),
                 move_to_tomorrow   = targetObj.find('#move_to_tomorrow'),
-                move_to_next_month = targetObj.find('#move_to_next_month');
+                move_to_next_month = targetObj.find('#move_to_next_month'),
+                refDate = targetObj.find('#refDate');
 
             move_to_last_month.on('click', function(e){
                 
@@ -257,29 +275,20 @@
 
             });
 
+            refDate.on('blur', function(e){
+                
+                var refDate = targetObj.find('#refDate').val(),
+                    f_ref = moment( refDate, settings.format );
 
+                setDayCells( targetObj, refDate );
+
+            });
 
             return this;
 
         });
 
-        function change_day( targetObj, action, num_days ){
-
-            var refDate = targetObj.find('#refDate').val(),
-                f_ref = '';
-
-            if( action == 'subtract'){
-                f_ref = moment( refDate, settings.format ).subtract(num_days, 'days');    
-            }else{
-                f_ref = moment( refDate, settings.format ).add(num_days, 'days');   
-            }
-            
-
-            targetObj.find('#refDate').val( f_ref.format( settings.format ) );
-
-            setDayCells( targetObj, f_ref );
-
-        }
+        
 
 
         
