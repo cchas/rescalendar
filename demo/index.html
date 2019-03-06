@@ -9,7 +9,7 @@
         <title>Jquery based horizontal calendar plugin</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="../src/css/res_calendar.css">
+        <link rel="stylesheet" href="../src/css/rescalendar.css">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		
         <meta http-equiv="Cache-Control" content="no-store" />
@@ -32,12 +32,12 @@
     <body>
         
         <h4>JQUERY Horizontal Calendar</h4>
-        <div class="res_calendar" id="my_calendar1"></div>
+        <div class="rescalendar" id="my_calendar1"></div>
         <br><br>
     
         <!--
         <h4>DIV2.- simple instantiation</h4>
-        <div class="res_calendar" id="my_image2"></div>
+        <div class="rescalendar" id="my_image2"></div>
         <br><br>
         
         <h4>DIV3.- With initializing with an image</h4>
@@ -55,28 +55,31 @@
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="../src/js/res_calendar.js"></script>
+        <script src="../src/js/rescalendar.js"></script>
         
         <script>
             
             $(function(){
 
                 // Multiple instantiation (divs 1 and 2)
-                $('.res_calendar').res_calendar();
+                $('.rescalendar').rescalendar({
+                    id: 'my_calendar1',
+                    refDate: '06/03/2019'
+                });
 
 
                 /*
-                $('#my_image3').res_calendar({
+                $('#my_image3').rescalendar({
                     src: 'img/default.png'
                 });
 
-                $('#my_image4').res_calendar({
+                $('#my_image4').rescalendar({
                     data: {
                         data_field_name: 'data_field_value'
                     }
                 });
                 
-                $('#my_image5').res_calendar({
+                $('#my_image5').rescalendar({
                     border_width: 15,
                     border_color: '#ccc',
                     button_color: '#155724',

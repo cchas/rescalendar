@@ -12,24 +12,24 @@ This is a very simple plugin that shows JSON data in an horizontal calendar.
 
 # Quick and dirty initialization:
 	
-1. Link to the res_calendar.css in the head of your html, and to the res_calendar.js file AFTER linking to jquery.
+1. Link to the rescalendar.css in the head of your html, and to the rescalendar.js file AFTER linking to jquery.
 
-2. Put in your html a div with class "res_calendar" and an id attribute, like:
+2. Put in your html a div with class "rescalendar" and an id attribute, like:
 		
 ```
-<div class="res_calendar" id="my_image"></div>
+<div class="rescalendar" id="my_image"></div>
 ```
 
 3. Initialize the plugin after JQuery, like this:
 
 ```
-$('.res_calendar').res_calendar();
+$('.rescalendar').rescalendar();
 ```
 
 
 # How it works:
 
-- When you initialize the plugin, inside the div.res_calendar you will have:
+- When you initialize the plugin, inside the div.rescalendar you will have:
 	
 	- some wrappers to help with styling
 	- an input type file, with a data-filename attribute. When you upload a file, this attribute will be updated.
