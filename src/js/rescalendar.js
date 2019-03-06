@@ -80,7 +80,9 @@
                 f_aux = '',
                 dia = '',
                 mes = '',
-                clase_today = '';
+                clase_today = '',
+                clase_middleDay = '',
+                middleDay = targetObj.find('#refDate').val();
 
             var html = ''; 
 
@@ -97,8 +99,16 @@
                     clase_today = '';
                 }
 
+                if( f_aux.format( settings.format ) == middleDay ){
+                    clase_middleDay = 'middleDay';
+                }else{
+                    clase_middleDay = '';
+                }
+
+
+
                 html += [
-                    '<td class="day_cell ' + clase_today + '">',
+                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '">',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
                     '</td>'
