@@ -46,7 +46,15 @@
 
         function dateInRange( date, startDate, endDate ){
 
-            return true;
+            if( date == startDate || date == endDate ){
+                return true;
+            }
+
+            var date1        = moment( startDate, settings.format ),
+                date2        = moment( endDate, settings.format ),
+                date_compare = moment( date, settings.format);
+
+            return date_compare.isBetween( date1, date2, null, '[]' );
 
         }
 
@@ -59,8 +67,6 @@
             for( var i=0; i < data.length; i++){
 
                 obj_data  = data[i];
-
-                if( i == 0 ){ console.log(obj_data, 'obj_data'); }
 
                 if( 
                     name == obj_data.name &&
@@ -82,7 +88,8 @@
                 data = settings.data,
                 arr_dates = [],
                 name = '',
-                content = '';
+                content = '',
+                data_class = '';
 
             $('td.day_cell').each( function(index, value){
 
@@ -104,12 +111,14 @@
                     date = arr_dates[j];
 
                     if( dataInSet( data, name, date ) == true ){
-                        content = ' Yes ';
+                        content = ' ';
+                        data_class = 'hasEvent';
                     }else{
-                        content = ' No ';
+                        content = ' ';
+                        data_class = '';
                     }
                     
-                    html += '<td class="data_cell">' + content + '</td>';
+                    html += '<td class="data_cell ' + data_class + '">' + content + '</td>';
                 }            
 
                 html += '</tr>';

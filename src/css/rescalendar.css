@@ -50,3 +50,7 @@
 	cursor: pointer;
 	color: #000;
 }
+
+.hasEvent{
+	background: yellow;
+}
