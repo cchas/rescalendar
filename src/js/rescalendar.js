@@ -28,9 +28,9 @@
             var template = '',
                 id = targetObj.attr('id') || '';
 
-            if( id == '' || settings.dataKeys.length == 0 ){
+            if( id == '' || settings.dataKeyValues.length == 0 ){
 
-                targetObj.html( alert_error( settings.lang.init_error + ': No id or dataKeys' ) );
+                targetObj.html( alert_error( settings.lang.init_error + ': No id or dataKeyValues' ) );
                 return false;
             
             }
@@ -44,19 +44,73 @@
 
         };
 
-        function setData( targetObj, dataKeys, data ){
+        function dateInRange( date, startDate, endDate ){
+
+            return true;
+
+        }
+
+        function dataInSet( data, name, date ){
+
+            // returns true if date in data range and name
+
+            var obj_data = {};
+
+            for( var i=0; i < data.length; i++){
+
+                obj_data  = data[i];
+
+                if( i == 0 ){ console.log(obj_data, 'obj_data'); }
+
+                if( 
+                    name == obj_data.name &&
+                    dateInRange( date, obj_data.startDate, obj_data.endDate )
+                ){ 
+                    return true; 
+                }
+
+            } 
+
+            return false;
+
+        }
+
+        function setData( targetObj, dataKeyValues, data ){
 
             var html = '',
-                dataKeys = settings.dataKeys,
-                data = settings.data;
+                dataKeyValues = settings.dataKeyValues,
+                data = settings.data,
+                arr_dates = [],
+                name = '',
+                content = '';
 
-            console.log(dataKeys, 'dataKeys');
+            $('td.day_cell').each( function(index, value){
 
-            for( var i=0; i<dataKeys.length; i++){
+                arr_dates.push( $(this).attr('data-cellDate') );
+
+            });
+
+            for( var i=0; i<dataKeyValues.length; i++){
+
+                content = '';
+                date    = '';
+                name    = dataKeyValues[i];
 
                 html += '<tr class="dataRow">';
-                html += '<td class="firstColumn">' + dataKeys[i] + '</td>';
+                html += '<td class="firstColumn">' + name + '</td>';
+                
+                for( var j=0; j < arr_dates.length; j++ ){
 
+                    date = arr_dates[j];
+
+                    if( dataInSet( data, name, date ) == true ){
+                        content = ' Yes ';
+                    }else{
+                        content = ' No ';
+                    }
+                    
+                    html += '<td class="data_cell">' + content + '</td>';
+                }            
 
                 html += '</tr>';
 
@@ -154,7 +208,7 @@
             refDate      : moment().format( this.format ),
             
             data: {},
-            dataKeys: [],
+            dataKeyValues: [],
             lang: {
                 'init_error' : 'Error when initializing',
                 'today'   : 'Today'

@@ -135,9 +135,8 @@ describe( 'REScalendar test', function() {
 
 		it('Moves when clicking on a day', function(){
 
-			var refDate = Cypress.$('#refDate').val();
-
-			var new_day = moment(refDate, format).add(3, 'days').format(format);
+			var refDate = Cypress.$('#refDate').val(),
+				new_day = moment(refDate, format).add(3, 'days').format(format);
 
 			cy.get('td.day_cell[data-celldate="' + new_day + '"]').click();
 
@@ -150,9 +149,9 @@ describe( 'REScalendar test', function() {
 
 		it('Moves when changing refDate input', function(){
 
-			var refDate = Cypress.$('#refDate').val();
-
-			var new_day = moment(refDate, format).add(5, 'days').format( format );
+			var refDate 	 = Cypress.$('#refDate').val(),
+				middleDayVal = '',
+				new_day 	 = moment(refDate, format).add(5, 'days').format( format );
 			
 			cy.get('#refDate')
 				.clear()
@@ -160,10 +159,11 @@ describe( 'REScalendar test', function() {
 				.blur({force: true});
 
 			cy.wait( 500 ).then( function(){
+				
 				refDate = Cypress.$('#refDate').val();
 				expect( refDate ).to.equal( new_day );
 
-				var middleDayVal = Cypress.$('td.middleDay').attr( 'data-celldate' );				
+				middleDayVal = Cypress.$('td.middleDay').attr( 'data-celldate' );				
 				expect( middleDayVal ).to.equal( refDate );
 
 			});		
@@ -191,8 +191,11 @@ describe( 'REScalendar test', function() {
 	    });
 
 
-		it('Has wrapper div', function() {
+		it('Has data rows', function() {
 
+			expect( Cypress.$('tr.dataRow').length ).to.be.greaterThan(0);
+
+			expect( Cypress.$('tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
 	    	
 
 	    });

@@ -75,11 +75,29 @@
                         'init_error': 'Error when initializing'
                     },
 
-                    data: {
+                    data: [
+                        {
+                            id: 1,
+                            name: 'item1',
+                            startDate: '01/03/2019',
+                            endDate: '03/03/2019',
+                            attributes: {
+                                estado: 'Pendiente'
+                            }
+                        },
+                        {
+                            id: 2,
+                            name: 'item2',
+                            startDate: '05/03/2019',
+                            endDate: '15/03/2019',
+                            attributes: {
+                                estado: 'Aceptado'
+                            }
+                        }
+                    ],
 
-                    },
-
-                    dataKeys: ['item1', 'item2', 'item3']
+                    dataKeyField: 'name',
+                    dataKeyValues: ['item1', 'item2', 'item3']
 
                 });
 
