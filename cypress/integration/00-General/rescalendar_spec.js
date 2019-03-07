@@ -201,6 +201,18 @@ describe( 'REScalendar test', function() {
 	    });
 
 
+	    it('Has hasEvent class', function() {
+
+			// Must be set in initialization
+
+			var dateInRange = '01/03/2019',
+				nameInRange = 'item1';
+
+			expect( Cypress.$('tr.dataRow td[data-date="' + dateInRange + '"][data-name="' + nameInRange + '"]' ).hasClass('hasEvent') ).to.be.true;
+
+	    });
+
+
 		after( function(){
   			
 

@@ -118,7 +118,7 @@
                         data_class = '';
                     }
                     
-                    html += '<td class="data_cell ' + data_class + '">' + content + '</td>';
+                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + data_class + '">' + content + '</td>';
                 }            
 
                 html += '</tr>';
