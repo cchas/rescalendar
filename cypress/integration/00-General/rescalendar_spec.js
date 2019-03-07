@@ -135,6 +135,8 @@ describe( 'REScalendar test', function() {
 				expect( refDate ).to.equal( new_day );
 			});
 
+
+
 		});
 
 		it('Moves when changing refDate input', function(){
@@ -145,8 +147,8 @@ describe( 'REScalendar test', function() {
 			
 			cy.get('#refDate')
 				.clear()
-				.type( new_day )
-				.blur( {force: true} );
+				.type(new_day)
+				.blur({force: true});
 
 			cy.wait( 500 ).then( function(){
 				refDate = Cypress.$('#refDate').val();

@@ -21,47 +21,16 @@
         
         }
 
-        /*
-        function update_data_filename(targetObj, filename){
-            targetObj.find('input[type=file]').attr('data-filename', filename);        
-        }
-
-        function show_clear_button( targetObj ){
-            targetObj.find('a.clear_image').show();
-        }
-
-        function hide_clear_button( targetObj ){
-            targetObj.find('a.clear_image').hide();
-        }
-
-        function clear_image( targetObj ){
-
-            targetObj.find('div.thumbnail_image img').attr('src', '');
-            
-            update_data_filename( targetObj, '');
-            hide_clear_button( targetObj);
-            clear_message( targetObj );
-
-        }
-        */
-
         function set_template( targetObj, settings ){
             
             var template = '',
                 id = targetObj.attr('id') || '';
 
-            if( 
-                settings.url_upload == '' || 
-                id == '' 
-            ){
+            if( id == '' ){
 
                 targetObj.html( alert_error( lang.init_error ) );
                 return false;
             
-            }
-
-            if( settings.src.length > 4 && settings.src.indexOf('//') > -1 ){
-                settings.src = settings.src;
             }
 
             template = settings.template_html( targetObj, settings );
@@ -155,18 +124,10 @@
             jumpSize     : 15,
             refDate      : moment().format( this.format ),
             
-            url_spinner  : 'img/spinner.gif',
-            url_upload   : 'upload.php',
-            src: '',
-            field_name : 'upl',
             data: {},
             lang: {
                 'today'   : 'Today'
             },
-            border_width: 10,
-            border_color: '#000000',
-            button_color: '#ff0000',
-            background_color: 'transparent',
 
             template_html: function( targetObj, settings ){
 
@@ -220,36 +181,13 @@
 
             setDayCells( targetObj, settings.refDate );
 
-            
-            /*
-            var objInputFile     = targetObj.find('input[type="file"]'),
-                link_clear_image = targetObj.find('a.clear_image');
-
-            objInputFile.on('change', function(e){ 
-
-                e.preventDefault();
-
-                var file = URL.createObjectURL( objInputFile.get(0).files[0] );
-
-                run_file_upload( targetObj, file, settings );
-
-            });
-
-            link_clear_image.on('click', function(e){ 
-                
-                e.preventDefault();
-
-                clear_image( targetObj );
-
-            });
-            */
-
+            // Eventos
             var move_to_last_month = targetObj.find('#move_to_last_month'),
                 move_to_yesterday  = targetObj.find('#move_to_yesterday'),
                 move_to_tomorrow   = targetObj.find('#move_to_tomorrow'),
                 move_to_next_month = targetObj.find('#move_to_next_month'),
-                move_to_today = targetObj.find('#move_to_today'),
-                refDate = targetObj.find('#refDate');
+                move_to_today      = targetObj.find('#move_to_today'),
+                refDate            = targetObj.find('#refDate');
 
             move_to_last_month.on('click', function(e){
                 
