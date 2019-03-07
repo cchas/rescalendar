@@ -94,7 +94,7 @@
                 f_aux_format = f_aux.format( format );
 
                 dia = f_aux.format('DD');
-                mes = f_aux.lang('es').format('MMM').replace('.','');
+                mes = f_aux.locale('es').format('MMM').replace('.','');
                 
                 f_aux_format == today.format( format ) ? clase_today = 'today' : clase_today = '';
                 f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
@@ -151,23 +151,17 @@
         // INITIALIZATION
         var settings = $.extend({
             id           : 'rescalendar',
-            refDate      : '',
             format       : 'DD/MM/YYYY',
             jumpSize     : 15,
-
+            refDate      : moment().format( this.format ),
+            
             url_spinner  : 'img/spinner.gif',
             url_upload   : 'upload.php',
             src: '',
             field_name : 'upl',
             data: {},
             lang: {
-                'click_to_upload'   : '<i class="fa fa-upload"></i> Click to upload a file',
-                'init_error'        : 'Error when initializing plugin',
-                'upload_file_error' : '<i class="fa fa-times-circle"></i> Error when uploading file: ',
-                'network_error'     : '<i class="fa fa-times-circle"></i> Error when connecting to server',
-                'upload_success'    : '<i class="fa fa-check-circle"></i> File uploaded successfully',
-                'upload_processing' : 'Processing file...',
-                'upload_error'      : '<i class="fa fa-times-circle"></i> Error when uploading'
+                'today'   : 'Today'
             },
             border_width: 10,
             border_color: '#000000',
@@ -177,7 +171,7 @@
             template_html: function( targetObj, settings ){
 
                 var id      = targetObj.attr('id'),
-                    refDate = settings.refDate || '06/03/2019';
+                    refDate = settings.refDate || moment().format(settings.format);
 
                 return [
 
@@ -194,7 +188,7 @@
                             '<button id="move_to_next_month"> >> </button>',
 
                             '<br>',
-                            '<button id="move_to_today"> Hoy </button>',
+                            '<button id="move_to_today"> ' + settings.lang.today + ' </button>',
 
                         '</div>',
 
