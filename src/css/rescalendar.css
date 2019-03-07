@@ -15,9 +15,9 @@
 }
 
 .rescalendar_table .firstColumn{
-	min-width: 100px;
-	background: blue;
-	border: 1px solid green;
+	min-width: 60px;
+	background: #eee;
+	text-align: left;
 }
 
 #rescalendar_day_cells td{

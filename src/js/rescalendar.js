@@ -4,6 +4,8 @@
 
         function alert_error( error_message ){
 
+            console.log(error_message, 'error_message');
+
             return [
                 '<div class="error_wrapper">',
 
@@ -22,16 +24,17 @@
         }
 
         function set_template( targetObj, settings ){
-            
+
             var template = '',
                 id = targetObj.attr('id') || '';
 
-            if( id == '' ){
+            if( id == '' || settings.dataKeys.length == 0 ){
 
-                targetObj.html( alert_error( lang.init_error ) );
+                targetObj.html( alert_error( settings.lang.init_error + ': No id or dataKeys' ) );
                 return false;
             
             }
+
 
             template = settings.template_html( targetObj, settings );
 
@@ -40,6 +43,27 @@
             return true;
 
         };
+
+        function setData( targetObj, dataKeys, data ){
+
+            var html = '',
+                dataKeys = settings.dataKeys,
+                data = settings.data;
+
+            console.log(dataKeys, 'dataKeys');
+
+            for( var i=0; i<dataKeys.length; i++){
+
+                html += '<tr class="dataRow">';
+                html += '<td class="firstColumn">' + dataKeys[i] + '</td>';
+
+
+                html += '</tr>';
+
+            }
+
+            targetObj.find('#rescalendar_data_rows').html( html );
+        }
 
         function setDayCells( targetObj, refDate ){
 
@@ -83,6 +107,8 @@
             targetObj.find('#rescalendar_day_cells').html( html );
 
             addTdClickEvent( targetObj );
+
+            setData( targetObj )
 
             
         }
@@ -128,7 +154,9 @@
             refDate      : moment().format( this.format ),
             
             data: {},
+            dataKeys: [],
             lang: {
+                'init_error' : 'Error when initializing',
                 'today'   : 'Today'
             },
 
@@ -160,7 +188,7 @@
                             '<thead>',
                                 '<tr id="rescalendar_day_cells"></tr>',
                             '</thead>',
-                            '<tbody id="filas">',
+                            '<tbody id="rescalendar_data_rows">',
                                 
                             '</tbody>',
                         '</table>',
