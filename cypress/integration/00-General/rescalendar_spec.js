@@ -197,14 +197,12 @@ describe( 'REScalendar test', function() {
 
 			expect( Cypress.$('tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
 	    	
-
 	    });
 
 
 	    it('Has hasEvent class', function() {
 
 			// Must be set in initialization
-
 			var dateInRange = '01/03/2019',
 				nameInRange = 'item1';
 

@@ -24,6 +24,14 @@
                 width: 100%;
                 text-align: center;
             }
+            
+            .greenClass{
+                background: green;
+            }
+
+            .blueClass{
+                background: blue;
+            }
 
         </style>
 
@@ -81,18 +89,20 @@
                             name: 'item1',
                             startDate: '01/03/2019',
                             endDate: '03/03/2019',
-                            attributes: {
-                                estado: 'Pendiente'
-                            }
+                            customClass: 'greenClass'
                         },
                         {
                             id: 2,
                             name: 'item2',
                             startDate: '05/03/2019',
                             endDate: '15/03/2019',
-                            attributes: {
-                                estado: 'Aceptado'
-                            }
+                            customClass: 'blueClass'
+                        },
+                        {
+                            id: 3,
+                            name: 'item1',
+                            startDate: '05/03/2019',
+                            endDate: '08/03/2019'
                         }
                     ],
 

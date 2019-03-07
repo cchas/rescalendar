@@ -60,19 +60,27 @@
 
         function dataInSet( data, name, date ){
 
-            // returns true if date in data range and name
+            // returns the customClass or "" if date in data range and name, false otherwise
+
+            var returnClass = returnClass || false;
 
             var obj_data = {};
 
             for( var i=0; i < data.length; i++){
 
-                obj_data  = data[i];
+                obj_data = data[i];
 
                 if( 
                     name == obj_data.name &&
                     dateInRange( date, obj_data.startDate, obj_data.endDate )
                 ){ 
-                    return true; 
+                    
+                    if( obj_data.customClass ){
+                        return obj_data.customClass;
+                    }
+
+                    return '';
+
                 }
 
             } 
@@ -83,13 +91,15 @@
 
         function setData( targetObj, dataKeyValues, data ){
 
-            var html = '',
+            var html          = '',
                 dataKeyValues = settings.dataKeyValues,
-                data = settings.data,
-                arr_dates = [],
-                name = '',
-                content = '',
-                data_class = '';
+                data          = settings.data,
+                arr_dates     = [],
+                name          = '',
+                content       = '',
+                hasEventClass = '',
+                customClass   = '',
+                classInSet     = false;
 
             $('td.day_cell').each( function(index, value){
 
@@ -110,15 +120,23 @@
 
                     date = arr_dates[j];
 
-                    if( dataInSet( data, name, date ) == true ){
-                        content = ' ';
-                        data_class = 'hasEvent';
+                    classInSet = dataInSet( data, name, date );
+                    console.log(classInSet, 'classInSet');
+
+                    if( classInSet === false ){
+                        
+                        content       = ' ';
+                        hasEventClass = '';
+                        customClass   = '';
+                    
                     }else{
+
                         content = ' ';
-                        data_class = '';
+                        hasEventClass = 'hasEvent';
+                        customClass = classInSet;
                     }
                     
-                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + data_class + '">' + content + '</td>';
+                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + classInSet + '">' + content + '</td>';
                 }            
 
                 html += '</tr>';
