@@ -14,13 +14,19 @@
 	margin: 0 auto;
 }
 
+.rescalendar_table .firstColumn{
+	min-width: 100px;
+	background: blue;
+	border: 1px solid green;
+}
+
 #rescalendar_day_cells td{
 	width: 22px;
 }
 
 #rescalendar_day_cells span{
 	display: block;
-	padding: 5px 2px;
+	padding: 0 2px 0px;
 	font-size: 14px;
 	width: 22px;
 }

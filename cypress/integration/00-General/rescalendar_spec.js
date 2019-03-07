@@ -48,16 +48,27 @@ describe( 'REScalendar test', function() {
 
 			cy.get('#rescalendar_day_cells').should('be.visible');
 
-			expect( Cypress.$('#rescalendar_day_cells td').length ).to.equal(31); // 31 porque son 15 por cada lado
+			// 32 porque son 15 por cada lado, + 1 para que quede simétrico, + 1 first column
+			expect( Cypress.$('#rescalendar_day_cells td').length ).to.equal(32); 
 
 			cy.get('#rescalendar_day_cells .today').should('be.visible');
 			cy.get('#rescalendar_day_cells .middleDay').should('be.visible');
 
+			expect( Cypress.$('span.dia').length ).to.be.greaterThan(0); 
+			expect( Cypress.$('span.dia_semana').length ).to.be.greaterThan(0); 
+			expect( Cypress.$('span.mes').length ).to.be.greaterThan(0); 
 
 		});
 
+		it('Has firstColumn cells', function() {
+
+			expect( Cypress.$('.firstColumn').length ).to.be.greaterThan(0); 
+
+		});
+
+
+
 		after( function(){
-  			
 
 
   		});
@@ -135,8 +146,6 @@ describe( 'REScalendar test', function() {
 				expect( refDate ).to.equal( new_day );
 			});
 
-
-
 		});
 
 		it('Moves when changing refDate input', function(){
@@ -160,6 +169,34 @@ describe( 'REScalendar test', function() {
 			});		
 
 		});
+
+		after( function(){
+  			
+
+
+  		});
+
+	});
+
+
+	context('Data management tests', function(){
+	    
+	    before( function(){
+	    	// cy.visit('https://example.cypress.io/cypress-api')
+  			// cy.visit('http://localhost/rescalendar/demo/index.html')
+  		});
+
+	    beforeEach(function(){
+
+	    });
+
+
+		it('Has wrapper div', function() {
+
+	    	
+
+	    });
+
 
 		after( function(){
   			

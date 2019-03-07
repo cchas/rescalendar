@@ -47,10 +47,11 @@
                 f_inicio = moment( refDate, format ).subtract(15, 'days'),
                 f_fin    = moment( refDate, format ).add(15, 'days'),
                 today    = moment( ).startOf('day'),
-                html            = '',
+                html            = '<td class="firstColumn"></td>',
                 f_aux           = '',
                 f_aux_format    = '',
                 dia             = '',
+                dia_semana      = '',
                 mes             = '',
                 clase_today     = '',
                 clase_middleDay = '',
@@ -64,12 +65,14 @@
 
                 dia = f_aux.format('DD');
                 mes = f_aux.locale('es').format('MMM').replace('.','');
+                dia_semana = f_aux.locale('es').format('dd');
                 
                 f_aux_format == today.format( format ) ? clase_today = 'today' : clase_today = '';
                 f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
 
                 html += [
                     '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux.format( settings.format ) + '">',
+                        '<span class="dia_semana">' + dia_semana + '</span>',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
                     '</td>'
