@@ -64,40 +64,40 @@ $('.rescalendar').rescalendar({
 	- dataKeyValues: an array with the names to be shown as rows. Default: []
 	- lang. An Object with translations, with 4 possible translations. Overwrite if needed:
 ```
-			 {
-                'init_error' : 'Error when initializing',
-                'no_data_error': 'No data found',
-                'no_ref_date'  : 'No refDate found',
-                'today'   : 'Today'
-            }
+{
+    'init_error' : 'Error when initializing',
+    'no_data_error': 'No data found',
+    'no_ref_date'  : 'No refDate found',
+    'today'   : 'Today'
+}
 ```
     - data: an array of objects containing the data to be shown in the calendar. Example:
 ```	
-		[
-            {
-                id: 1, // not used
-                name: 'item1', // must match a dataKeyField value, otherwise this data range wont be shown
-                startDate: '2019-03-01', // same format as in the format required option
-                endDate: '2019-03-03', // same format as in the format required option
-                customClass: 'greenClass', // optional, class will be added to every data point in the calendar
-                title: 'Title 1 en' // if provided, a link with href="#" and a target with this title will be added
-            },
-            {
-                id: 2,
-                name: 'item2',
-                startDate: '2019-03-05',
-                endDate: '2019-03-15',
-                customClass: 'blueClass',
-                title: 'Title 2 en'
-            },
-            {
-                id: 3,
-                name: 'item5',
-                startDate: '2019-03-05',
-                endDate: '2019-03-08',
-                customClass: 'greenClass'
-            }
-        ]
+[
+    {
+        id: 1, // not used
+        name: 'item1', // must match a dataKeyField value, otherwise this data range wont be shown
+        startDate: '2019-03-01', // same format as in the format required option
+        endDate: '2019-03-03', // same format as in the format required option
+        customClass: 'greenClass', // optional, class will be added to every data point in the calendar
+        title: 'Title 1 en' // if provided, a link with href="#" and a target with this title will be added
+    },
+    {
+        id: 2,
+        name: 'item2',
+        startDate: '2019-03-05',
+        endDate: '2019-03-15',
+        customClass: 'blueClass',
+        title: 'Title 2 en'
+    },
+    {
+        id: 3,
+        name: 'item5',
+        startDate: '2019-03-05',
+        endDate: '2019-03-08',
+        customClass: 'greenClass'
+    }
+]
 ```
 
 
