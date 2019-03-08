@@ -44,7 +44,7 @@
             <div class="rescalendar" id="my_calendar1"></div>
 
             <br><br>
-            <div class="rescalendar" id="my_calendar2"></div>
+            <div class="rescalendar" id="my_calendar_en"></div>
         </div>
 
         <!--
@@ -75,10 +75,49 @@
             $(function(){
 
                 // Multiple instantiation (divs 1 and 2)
-                $('.rescalendar').rescalendar({
+                $('#my_calendar1').rescalendar({
                     id: 'my_calendar1',
                     format: 'DD/MM/YYYY',
                     refDate: moment().format('DD/MM/YYYY'),
+                    jumpSize: 15,
+
+                    lang: {
+                        'today': 'Hoy',
+                        'init_error': 'Error al inicializar'
+                    },
+
+                    data: [
+                        {
+                            id: 1,
+                            name: 'item1',
+                            startDate: '01/03/2019',
+                            endDate: '03/03/2019',
+                            customClass: 'greenClass'
+                        },
+                        {
+                            id: 2,
+                            name: 'item2',
+                            startDate: '05/03/2019',
+                            endDate: '15/03/2019',
+                            customClass: 'blueClass'
+                        },
+                        {
+                            id: 3,
+                            name: 'item1',
+                            startDate: '05/03/2019',
+                            endDate: '08/03/2019'
+                        }
+                    ],
+
+                    dataKeyField: 'name',
+                    dataKeyValues: ['item1', 'item2', 'item3']
+
+                });
+
+                $('#my_calendar_en').rescalendar({
+                    id: 'my_calendar_en',
+                    format: 'YYYY-MM-DD',
+                    refDate: moment().format('YYYY-MM-DD'),
                     jumpSize: 15,
 
                     lang: {

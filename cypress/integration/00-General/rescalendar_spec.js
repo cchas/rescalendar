@@ -6,17 +6,17 @@ const moment = require( '../../../src/js/moment' );
 
 describe( 'REScalendar test', function() {
   	
-	execute_tests({
+	execute_calendar_init_test({
 		format: 'DD/MM/YYYY',
 		wrapper_div: '#my_calendar1'
 	});
 	
-	execute_tests({
-		format: 'DD/MM/YYYY',
-		wrapper_div: '#my_calendar2'
+	execute_calendar_init_test({
+		format: 'YYYY-MM-DD',
+		wrapper_div: '#my_calendar_en'
 	});
 
-	function execute_tests(obj_options){
+	function execute_calendar_init_test(obj_options){
 
 		var format = obj_options.format,
 			wrapper_div = obj_options.wrapper_div + ' ';
@@ -43,9 +43,10 @@ describe( 'REScalendar test', function() {
 
 				cy.get(wrapper_div + 'input.refDate')
 				        .should('be.visible')
-				        .and('have.value', Fx.hoy() );
+				        .and('have.value', moment().format(format) );
 				
 			});
+
 
 			it('Has move buttons', function() {
 

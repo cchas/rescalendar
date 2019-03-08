@@ -168,8 +168,8 @@
                 f_aux_format = f_aux.format( format );
 
                 dia = f_aux.format('DD');
-                mes = f_aux.locale('es').format('MMM').replace('.','');
-                dia_semana = f_aux.locale('es').format('dd');
+                mes = f_aux.locale( settings.locale ).format('MMM').replace('.','');
+                dia_semana = f_aux.locale( settings.locale ).format('dd');
                 
                 f_aux_format == today.format( format ) ? clase_today = 'today' : clase_today = '';
                 f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
@@ -229,10 +229,11 @@
         // INITIALIZATION
         var settings = $.extend({
             id           : 'rescalendar',
-            format       : 'DD/MM/YYYY',
+            format       : 'YYYY-MM-DD',
             jumpSize     : 15,
             refDate      : moment().format( this.format ),
-            
+            locale       : 'en',
+
             data: {},
             dataKeyValues: [],
             lang: {
