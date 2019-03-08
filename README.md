@@ -46,8 +46,6 @@ $('.rescalendar').rescalendar({
 
 
 
-
-
 # Options / Properties:
 
 - Required:
