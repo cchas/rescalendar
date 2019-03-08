@@ -33,6 +33,13 @@
             
             }
 
+            if( settings.refDate.length != 10 ){
+
+                targetObj.html( alert_error( settings.lang.no_ref_date ) );
+                return false;
+                
+            }
+
 
             template = settings.template_html( targetObj, settings );
 
@@ -251,13 +258,15 @@
             lang: {
                 'init_error' : 'Error when initializing',
                 'no_data_error': 'No data found',
+                'no_ref_date'  : 'No refDate found',
                 'today'   : 'Today'
             },
 
             template_html: function( targetObj, settings ){
-
+                
                 var id      = targetObj.attr('id'),
-                    refDate = settings.refDate || moment().format(settings.format);
+                    refDate = settings.refDate ;
+
 
                 return [
 
@@ -295,6 +304,8 @@
 
         }, options);
 
+        // Default ref date to today
+        
 
         var lang = settings.lang;
 

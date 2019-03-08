@@ -6,12 +6,14 @@ describe( 'REScalendar test', function() {
   	
   	execute_calendar_init_test({
 		format: 'DD/MM/YYYY',
-		wrapper_div: '#my_calendar1'
+		wrapper_div: '#my_calendar1',
+		refDate: '06/03/2019'
 	});
 	
 	execute_calendar_init_test({
 		format: 'YYYY-MM-DD',
-		wrapper_div: '#my_calendar_en'
+		wrapper_div: '#my_calendar_en',
+		refDate: '2019-03-08'
 	});
 	
 	execute_calendar_init_test({
@@ -30,7 +32,8 @@ describe( 'REScalendar test', function() {
 
 		var format      = obj_options.format,
 			wrapper_div = obj_options.wrapper_div + ' ',
-			jumpSize    = obj_options.jumpSize || 15;
+			jumpSize    = obj_options.jumpSize || 15,
+			refDate     = obj_options.refDate || moment().format(obj_options.format);
 
 		context('Initialization tests', function(){
 		    
@@ -52,7 +55,7 @@ describe( 'REScalendar test', function() {
 
 				cy.get(wrapper_div + 'input.refDate')
 				    .should('be.visible')
-				    .and('have.value', moment().format(format) );
+				    .and('have.value', refDate );
 				
 			});
 
