@@ -6,6 +6,7 @@ const moment = require( '../../../src/js/moment' );
 
 describe( 'REScalendar test', function() {
   	
+  	/*
 	execute_calendar_init_test({
 		format: 'DD/MM/YYYY',
 		wrapper_div: '#my_calendar1'
@@ -14,6 +15,12 @@ describe( 'REScalendar test', function() {
 	execute_calendar_init_test({
 		format: 'YYYY-MM-DD',
 		wrapper_div: '#my_calendar_en'
+	});
+	*/
+
+	execute_calendar_init_test({
+		format: 'YYYY-MM-DD',
+		wrapper_div: '#my_calendar_simple'
 	});
 
 	function execute_calendar_init_test(obj_options){
@@ -30,6 +37,7 @@ describe( 'REScalendar test', function() {
 		    beforeEach(function(){
 
 		    });
+
 
 
 			it('Has wrapper div', function() {
@@ -178,27 +186,42 @@ describe( 'REScalendar test', function() {
 
 		context('Data management tests', function(){
 		    
-			it('Has data rows', function() {
 
-				expect( Cypress.$(wrapper_div + 'tr.dataRow').length ).to.be.greaterThan(0);
+		    	it('Has data rows', function() {
 
-				expect( Cypress.$(wrapper_div + 'tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
-		    	
-		    });
+					expect( Cypress.$(wrapper_div + 'tr.dataRow').length ).to.be.greaterThan(0);
+					expect( Cypress.$(wrapper_div + 'tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
+			    	
+			    });
 
-		    it('Has hasEvent classes', function() {
+			    it('Has hasEvent classes', function() {
 
-				// Must be set in initialization
-				var dateInRange = moment('01/03/2019','DD/MM/YYYY').format(format),
-					nameInRange = 'item1',
-					customClass = 'greenClass';
+					if( obj_options.wrapper_div != '#my_calendar_simple' ){
 
-				var objCell = Cypress.$(wrapper_div + 'tr.dataRow td[data-date="' + dateInRange + '"][data-name="' + nameInRange + '"]' );
+						// Must be set in initialization
+						var dateInRange = moment('01/03/2019','DD/MM/YYYY').format(format),
+							nameInRange = 'item1',
+							customClass = 'greenClass';
 
-				expect( objCell.hasClass('hasEvent'   ) ).to.be.true;
-				expect( objCell.hasClass( customClass ) ).to.be.true;
+						var objCell = Cypress.$(wrapper_div + 'tr.dataRow td[data-date="' + dateInRange + '"][data-name="' + nameInRange + '"]' );
+						
+						expect( objCell.hasClass('hasEvent'   ) ).to.be.true;
+						expect( objCell.hasClass( customClass ) ).to.be.true;
 
-		    });
+					}
+
+			    });
+
+			    it('Has a title attributes', function(){
+
+			    	if( obj_options.wrapper_div != '#my_calendar_simple' ){
+
+						expect( Cypress.$(wrapper_div + 'tr.dataRow td a[title]' ).length ).to.be.greaterThan(0);
+					}
+
+			    });		
+		    
+			
 
 		});
 	}

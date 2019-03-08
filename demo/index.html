@@ -40,10 +40,19 @@
         
         <h4>JQUERY Horizontal Calendar</h4>
         <div class="wrapper">
+            
+            <br><br>
+            <h4>Spanish calendar</h4>
             <div class="rescalendar" id="my_calendar1"></div>
 
             <br><br>
+            <h4>English calendar</h4>
             <div class="rescalendar" id="my_calendar_en"></div>
+
+            <br><br>
+            <h4>Simplest init</h4>
+            <div class="rescalendar" id="my_calendar_simple"></div>
+
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -72,7 +81,8 @@
                             name: 'item1',
                             startDate: '01/03/2019',
                             endDate: '03/03/2019',
-                            customClass: 'greenClass'
+                            customClass: 'greenClass',
+                            title: 'Title 1'
                         },
                         {
                             id: 2,
@@ -99,6 +109,7 @@
                     format: 'YYYY-MM-DD',
                     refDate: moment().format('YYYY-MM-DD'),
                     jumpSize: 15,
+                    disabledDays: ['2019-01-01', '2019-01-07', '2019-04-18', '2019-04-19', '2019-05-01', '2019-05-02', '2019-05-13', '2019-08-15', '2019-10-12', '2019-11-01', '2019-12-06', '2019-12-09', '2019-12-20', '2019-12-24', '2019-12-25', '2019-12-31'],
 
                     lang: {
                         'today': 'Today',
@@ -118,7 +129,8 @@
                             name: 'item2',
                             startDate: '2019-03-05',
                             endDate: '2019-03-15',
-                            customClass: 'blueClass'
+                            customClass: 'blueClass',
+                            title: 'Title 2 en'
                         },
                         {
                             id: 3,
@@ -132,6 +144,12 @@
                     dataKeyField: 'name',
                     dataKeyValues: ['item1', 'item2', 'item3','item4','item5']
 
+                });
+
+                $('#my_calendar_simple').rescalendar({
+                    id: 'my_calendar_simple',
+                    dataKeyField: 'name',
+                    dataKeyValues: ['item1', 'item2']
                 });
 
 

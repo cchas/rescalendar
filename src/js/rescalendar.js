@@ -4,8 +4,6 @@
 
         function alert_error( error_message ){
 
-            console.log(error_message, 'error_message');
-
             return [
                 '<div class="error_wrapper">',
 
@@ -61,7 +59,6 @@
         function dataInSet( data, name, date ){
 
             // returns the customClass or "" if date in data range and name, false otherwise
-
             var returnClass = returnClass || false;
 
             var obj_data = {};
@@ -75,11 +72,7 @@
                     dateInRange( date, obj_data.startDate, obj_data.endDate )
                 ){ 
                     
-                    if( obj_data.customClass ){
-                        return obj_data.customClass;
-                    }
-
-                    return '';
+                    return obj_data;
 
                 }
 
@@ -99,7 +92,8 @@
                 content       = '',
                 hasEventClass = '',
                 customClass   = '',
-                classInSet     = false;
+                classInSet    = false,
+                obj_data      = {};
 
             targetObj.find('td.day_cell').each( function(index, value){
 
@@ -118,24 +112,27 @@
                 
                 for( var j=0; j < arr_dates.length; j++ ){
 
-                    date = arr_dates[j];
-
-                    classInSet = dataInSet( data, name, date );
+                    title    = '';
+                    date     = arr_dates[j];
+                    obj_data = dataInSet( data, name, date );
                     
-                    if( classInSet === false ){
+                    if( typeof obj_data === 'object' ){
                         
+                        if( obj_data.title ){ title = ' title="' + obj_data.title + '" '; }
+
+                        content = '<a href="#" ' + title + '>&nbsp;</a>';
+                        hasEventClass = 'hasEvent';
+                        customClass = obj_data.customClass;
+
+                    }else{
+
                         content       = ' ';
                         hasEventClass = '';
                         customClass   = '';
                     
-                    }else{
-
-                        content = ' ';
-                        hasEventClass = 'hasEvent';
-                        customClass = classInSet;
                     }
                     
-                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + classInSet + '">' + content + '</td>';
+                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + customClass + '">' + content + '</td>';
                 }
 
                 html += '</tr>';
@@ -146,6 +143,8 @@
         }
 
         function setDayCells( targetObj, refDate ){
+
+            console.log(settings.format, 'format');
 
             var format   = settings.format,
                 f_inicio = moment( refDate, format ).subtract(15, 'days'),
@@ -159,23 +158,30 @@
                 mes             = '',
                 clase_today     = '',
                 clase_middleDay = '',
+                clase_disabled  = '',
                 middleDay       = targetObj.find('input.refDate').val(),
                 blockSize       = settings.jumpSize * 2;
 
             for( var i = 0; i< (blockSize + 1) ; i++){
 
+                clase_disabled = '';
+
                 f_aux        = moment( f_inicio ).add(i, 'days');
                 f_aux_format = f_aux.format( format );
 
-                dia = f_aux.format('DD');
-                mes = f_aux.locale( settings.locale ).format('MMM').replace('.','');
+                dia        = f_aux.format('DD');
+                mes        = f_aux.locale( settings.locale ).format('MMM').replace('.','');
                 dia_semana = f_aux.locale( settings.locale ).format('dd');
                 
-                f_aux_format == today.format( format ) ? clase_today = 'today' : clase_today = '';
-                f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
+                f_aux_format == today.format( format ) ? clase_today = 'today'         : clase_today = '';
+                f_aux_format == middleDay              ? clase_middleDay = 'middleDay' : clase_middleDay = '';
+
+                if( settings.disabledDays.indexOf(f_aux_format) > -1 ){
+                    clase_disabled = 'disabled_day';
+                }
 
                 html += [
-                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux_format + '">',
+                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + ' ' + clase_disabled + '" data-cellDate="' + f_aux_format + '">',
                         '<span class="dia_semana">' + dia_semana + '</span>',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
@@ -231,13 +237,15 @@
             id           : 'rescalendar',
             format       : 'YYYY-MM-DD',
             jumpSize     : 15,
-            refDate      : moment().format( this.format ),
+            refDate      : moment().format( 'YYYY-MM-DD' ),
             locale       : 'en',
-
+            disabledDays : [],
             data: {},
             dataKeyValues: [],
+
             lang: {
                 'init_error' : 'Error when initializing',
+                'no_data_error': 'No data found',
                 'today'   : 'Today'
             },
 
