@@ -24,7 +24,6 @@ describe( 'REScalendar test', function() {
 		context('Initialization tests', function(){
 		    
 		    before( function(){
-		    	// cy.visit('https://example.cypress.io/cypress-api')
 	  			cy.visit('http://localhost/rescalendar/demo/index.html')
 	  		});
 
@@ -46,7 +45,6 @@ describe( 'REScalendar test', function() {
 				        .and('have.value', moment().format(format) );
 				
 			});
-
 
 			it('Has move buttons', function() {
 
@@ -82,7 +80,6 @@ describe( 'REScalendar test', function() {
 			});
 
 
-
 			after( function(){
 
 
@@ -93,15 +90,6 @@ describe( 'REScalendar test', function() {
 
 	  	context('Date change tests', function(){
 		    
-		    before( function(){
-		    	// cy.visit('https://example.cypress.io/cypress-api')
-	  			// cy.visit('http://localhost/rescalendar/demo/index.html')
-	  		});
-
-		    beforeEach(function(){
-
-		    });
-
 		    function test_move_days( selector, num_days, action ){
 
 				var refDate = Cypress.$(wrapper_div + 'input.refDate').val(),
@@ -185,27 +173,11 @@ describe( 'REScalendar test', function() {
 
 			});
 
-			after( function(){
-	  			
-
-
-	  		});
-
 		});
 
 
 		context('Data management tests', function(){
 		    
-		    before( function(){
-		    	// cy.visit('https://example.cypress.io/cypress-api')
-	  			// cy.visit('http://localhost/rescalendar/demo/index.html')
-	  		});
-
-		    beforeEach(function(){
-
-		    });
-
-
 			it('Has data rows', function() {
 
 				expect( Cypress.$(wrapper_div + 'tr.dataRow').length ).to.be.greaterThan(0);
@@ -214,11 +186,10 @@ describe( 'REScalendar test', function() {
 		    	
 		    });
 
-
 		    it('Has hasEvent classes', function() {
 
 				// Must be set in initialization
-				var dateInRange = '01/03/2019',
+				var dateInRange = moment('01/03/2019','DD/MM/YYYY').format(format),
 					nameInRange = 'item1',
 					customClass = 'greenClass';
 
@@ -228,13 +199,6 @@ describe( 'REScalendar test', function() {
 				expect( objCell.hasClass( customClass ) ).to.be.true;
 
 		    });
-
-
-			after( function(){
-	  			
-
-
-	  		});
 
 		});
 	}

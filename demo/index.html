@@ -10,7 +10,6 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="../src/css/rescalendar.css">
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		
         <meta http-equiv="Cache-Control" content="no-store" />
 
@@ -46,25 +45,6 @@
             <br><br>
             <div class="rescalendar" id="my_calendar_en"></div>
         </div>
-
-        <!--
-        <h4>DIV2.- simple instantiation</h4>
-        <div class="rescalendar" id="my_image2"></div>
-        <br><br>
-        
-        <h4>DIV3.- With initializing with an image</h4>
-        <div id="my_image3"></div>
-		<br><br>
-        
-        <h4>DIV4.- With data to be sent with the form</h4>
-        <div id="my_image4"></div>
-        <br><br>
-        
-        <h4>DIV5.- With styling options</h4>
-        <div id="my_image5"></div>
-        <br><br>
-        -->
-
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="../src/js/moment.js"></script>
@@ -129,49 +109,31 @@
                         {
                             id: 1,
                             name: 'item1',
-                            startDate: '01/03/2019',
-                            endDate: '03/03/2019',
+                            startDate: '2019-03-01',
+                            endDate: '2019-03-03',
                             customClass: 'greenClass'
                         },
                         {
                             id: 2,
                             name: 'item2',
-                            startDate: '05/03/2019',
-                            endDate: '15/03/2019',
+                            startDate: '2019-03-05',
+                            endDate: '2019-03-15',
                             customClass: 'blueClass'
                         },
                         {
                             id: 3,
-                            name: 'item1',
-                            startDate: '05/03/2019',
-                            endDate: '08/03/2019'
+                            name: 'item5',
+                            startDate: '2019-03-05',
+                            endDate: '2019-03-08',
+                            customClass: 'greenClass'
                         }
                     ],
 
                     dataKeyField: 'name',
-                    dataKeyValues: ['item1', 'item2', 'item3']
+                    dataKeyValues: ['item1', 'item2', 'item3','item4','item5']
 
                 });
 
-
-                /*
-                $('#my_image3').rescalendar({
-                    src: 'img/default.png'
-                });
-
-                $('#my_image4').rescalendar({
-                    data: {
-                        data_field_name: 'data_field_value'
-                    }
-                });
-                
-                $('#my_image5').rescalendar({
-                    border_width: 15,
-                    border_color: '#ccc',
-                    button_color: '#155724',
-                    background_color: '#eee'
-                });
-                */
 
             });
 

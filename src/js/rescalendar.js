@@ -101,7 +101,7 @@
                 customClass   = '',
                 classInSet     = false;
 
-            $('td.day_cell').each( function(index, value){
+            targetObj.find('td.day_cell').each( function(index, value){
 
                 arr_dates.push( $(this).attr('data-cellDate') );
 
@@ -136,7 +136,7 @@
                     }
                     
                     html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + classInSet + '">' + content + '</td>';
-                }            
+                }
 
                 html += '</tr>';
 
@@ -147,7 +147,7 @@
 
         function setDayCells( targetObj, refDate ){
 
-            var format = settings.format,
+            var format   = settings.format,
                 f_inicio = moment( refDate, format ).subtract(15, 'days'),
                 f_fin    = moment( refDate, format ).add(15, 'days'),
                 today    = moment( ).startOf('day'),
@@ -175,7 +175,7 @@
                 f_aux_format == middleDay ? clase_middleDay = 'middleDay' : clase_middleDay = '';
 
                 html += [
-                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux.format( settings.format ) + '">',
+                    '<td class="day_cell ' + clase_today + ' ' + clase_middleDay + '" data-cellDate="' + f_aux_format + '">',
                         '<span class="dia_semana">' + dia_semana + '</span>',
                         '<span class="dia">' + dia + '</span>',
                         '<span class="mes">' + mes + '</span>',
