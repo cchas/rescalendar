@@ -1,13 +1,10 @@
-
-
 const Fx  = require( '../../support/functions' );
 const Aux = require( '../../support/aux' );
 const moment = require( '../../../src/js/moment' );
 
 describe( 'REScalendar test', function() {
   	
-  	/*
-	execute_calendar_init_test({
+  	execute_calendar_init_test({
 		format: 'DD/MM/YYYY',
 		wrapper_div: '#my_calendar1'
 	});
@@ -16,17 +13,24 @@ describe( 'REScalendar test', function() {
 		format: 'YYYY-MM-DD',
 		wrapper_div: '#my_calendar_en'
 	});
-	*/
-
+	
 	execute_calendar_init_test({
 		format: 'YYYY-MM-DD',
 		wrapper_div: '#my_calendar_simple'
 	});
 
+	execute_calendar_init_test({
+		format: 'YYYY-MM-DD',
+		wrapper_div: '#my_calendar_calSize',
+		jumpSize: 5
+	});
+
+
 	function execute_calendar_init_test(obj_options){
 
-		var format = obj_options.format,
-			wrapper_div = obj_options.wrapper_div + ' ';
+		var format      = obj_options.format,
+			wrapper_div = obj_options.wrapper_div + ' ',
+			jumpSize    = obj_options.jumpSize || 15;
 
 		context('Initialization tests', function(){
 		    
@@ -38,8 +42,6 @@ describe( 'REScalendar test', function() {
 
 		    });
 
-
-
 			it('Has wrapper div', function() {
 
 		    	cy.get('div.my_calendar1_wrapper').should('be.visible');
@@ -49,8 +51,8 @@ describe( 'REScalendar test', function() {
 			it('Has date input defaulting today', function() {
 
 				cy.get(wrapper_div + 'input.refDate')
-				        .should('be.visible')
-				        .and('have.value', moment().format(format) );
+				    .should('be.visible')
+				    .and('have.value', moment().format(format) );
 				
 			});
 
@@ -67,10 +69,16 @@ describe( 'REScalendar test', function() {
 
 			it('Has day row cells', function() {
 
+				// 32 porque son 15 por cada lado, + 1 para que quede simétrico, + 1 first column
+				var num_cells = 32;
+
+				if( obj_options.wrapper_div == '#my_calendar_calSize' ){
+					num_cells = 12;
+				}
+
 				cy.get(wrapper_div + '.rescalendar_day_cells').should('be.visible');
 
-				// 32 porque son 15 por cada lado, + 1 para que quede simétrico, + 1 first column
-				expect( Cypress.$(wrapper_div + '.rescalendar_day_cells td').length ).to.equal(32); 
+				expect( Cypress.$(wrapper_div + '.rescalendar_day_cells td').length ).to.equal( num_cells ); 
 
 				cy.get(wrapper_div + '.rescalendar_day_cells .today').should('be.visible');
 				cy.get(wrapper_div + '.rescalendar_day_cells .middleDay').should('be.visible');
@@ -98,28 +106,6 @@ describe( 'REScalendar test', function() {
 
 	  	context('Date change tests', function(){
 		    
-		    function test_move_days( selector, num_days, action ){
-
-				var refDate = Cypress.$(wrapper_div + 'input.refDate').val(),
-					new_day = '';
-
-				if( action == 'add' ){
-					new_day = moment( refDate, format ).add(num_days, 'days').format( format );
-				}else{
-					new_day = moment( refDate, format ).subtract(num_days, 'days').format( format );
-				}
-				
-				expect( refDate.length ).to.equal( 10 );
-
-				cy.get( wrapper_div + selector ).click();
-
-				cy.wait( 500 ).then( function(){
-					refDate = Cypress.$(wrapper_div + 'input.refDate').val();
-					expect( refDate ).to.equal( new_day );
-				});
-
-		    }
-
 			it('Moves one day right when clicking on move_to_tomorrow', function(){
 
 				test_move_days('.move_to_tomorrow', 1, 'add');
@@ -134,13 +120,13 @@ describe( 'REScalendar test', function() {
 
 			it('Moves 15 days right when clicking on move_to_next_month', function(){
 
-				test_move_days('.move_to_next_month', 15, 'add');
+				test_move_days('.move_to_next_month', jumpSize, 'add');
 
 			});
 
 			it('Moves 15 days left when clicking on move_to_next_month', function(){
 
-				test_move_days('.move_to_last_month', 15, 'subtract');
+				test_move_days('.move_to_last_month', jumpSize, 'subtract');
 
 			});
 
@@ -187,43 +173,76 @@ describe( 'REScalendar test', function() {
 		context('Data management tests', function(){
 		    
 
-		    	it('Has data rows', function() {
 
-					expect( Cypress.$(wrapper_div + 'tr.dataRow').length ).to.be.greaterThan(0);
-					expect( Cypress.$(wrapper_div + 'tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
-			    	
-			    });
+	    	it('Has data rows', function() {
 
-			    it('Has hasEvent classes', function() {
+	    		expect( Cypress.$(wrapper_div + 'tr.dataRow').length ).to.be.greaterThan(0);
+				expect( Cypress.$(wrapper_div + 'tr.dataRow td.firstColumn').text().length ).to.be.greaterThan(0);
+		    	
+		    });
 
-					if( obj_options.wrapper_div != '#my_calendar_simple' ){
+		    it('Has hasEvent classes', function() {
 
-						// Must be set in initialization
-						var dateInRange = moment('01/03/2019','DD/MM/YYYY').format(format),
-							nameInRange = 'item1',
-							customClass = 'greenClass';
+				if( obj_options.wrapper_div != '#my_calendar_simple' ){
 
-						var objCell = Cypress.$(wrapper_div + 'tr.dataRow td[data-date="' + dateInRange + '"][data-name="' + nameInRange + '"]' );
-						
-						expect( objCell.hasClass('hasEvent'   ) ).to.be.true;
-						expect( objCell.hasClass( customClass ) ).to.be.true;
+					// Must be set in initialization
+					var dateInRange = moment('01/03/2019','DD/MM/YYYY').format(format),
+						nameInRange = 'item1',
+						customClass = 'greenClass';
+
+
+					if( obj_options.wrapper_div == '#my_calendar_calSize' ){
+						// para que no quede fuera del rango	
+						dateInRange = '2019-03-14';
+						nameInRange = 'item2';
+						customClass = 'blueClass';
 
 					}
 
-			    });
+					var objCell = Cypress.$(wrapper_div + 'tr.dataRow td[data-date="' + dateInRange + '"][data-name="' + nameInRange + '"]' );
+					
+					expect( objCell.hasClass( 'hasEvent'  ) ).to.be.true;
+					expect( objCell.hasClass( customClass ) ).to.be.true;
+					
+				}
 
-			    it('Has a title attributes', function(){
 
-			    	if( obj_options.wrapper_div != '#my_calendar_simple' ){
 
-						expect( Cypress.$(wrapper_div + 'tr.dataRow td a[title]' ).length ).to.be.greaterThan(0);
-					}
+		    });
 
-			    });		
+		    it('Has a title attributes', function(){
+
+		    	if( obj_options.wrapper_div != '#my_calendar_simple' ){
+
+					expect( Cypress.$(wrapper_div + 'tr.dataRow td a[title]' ).length ).to.be.greaterThan(0);
+				}
+
+		    });		
 		    
-			
-
 		});
+
+		// Auxiliary functions
+		function test_move_days( selector, num_days, action ){
+
+			var refDate = Cypress.$(wrapper_div + 'input.refDate').val(),
+				new_day = '';
+
+			if( action == 'add' ){
+				new_day = moment( refDate, format ).add(num_days, 'days').format( format );
+			}else{
+				new_day = moment( refDate, format ).subtract(num_days, 'days').format( format );
+			}
+			
+			expect( refDate.length ).to.equal( 10 );
+
+			cy.get( wrapper_div + selector ).click();
+
+			cy.wait( 500 ).then( function(){
+				refDate = Cypress.$(wrapper_div + 'input.refDate').val();
+				expect( refDate ).to.equal( new_day );
+			});
+
+	    } // end test_move_days
 	}
 
   	

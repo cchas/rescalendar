@@ -144,11 +144,9 @@
 
         function setDayCells( targetObj, refDate ){
 
-            console.log(settings.format, 'format');
-
             var format   = settings.format,
-                f_inicio = moment( refDate, format ).subtract(15, 'days'),
-                f_fin    = moment( refDate, format ).add(15, 'days'),
+                f_inicio = moment( refDate, format ).subtract(settings.jumpSize, 'days'),
+                f_fin    = moment( refDate, format ).add(settings.jumpSize, 'days'),
                 today    = moment( ).startOf('day'),
                 html            = '<td class="firstColumn"></td>',
                 f_aux           = '',
@@ -159,10 +157,9 @@
                 clase_today     = '',
                 clase_middleDay = '',
                 clase_disabled  = '',
-                middleDay       = targetObj.find('input.refDate').val(),
-                blockSize       = settings.jumpSize * 2;
+                middleDay       = targetObj.find('input.refDate').val();
 
-            for( var i = 0; i< (blockSize + 1) ; i++){
+            for( var i = 0; i< (settings.calSize + 1) ; i++){
 
                 clase_disabled = '';
 
@@ -237,6 +234,7 @@
             id           : 'rescalendar',
             format       : 'YYYY-MM-DD',
             jumpSize     : 15,
+            calSize      : 30,
             refDate      : moment().format( 'YYYY-MM-DD' ),
             locale       : 'en',
             disabledDays : [],
