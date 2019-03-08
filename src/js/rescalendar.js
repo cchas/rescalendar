@@ -153,6 +153,7 @@
                 f_aux_format    = '',
                 dia             = '',
                 dia_semana      = '',
+                num_dia_semana  = 0,
                 mes             = '',
                 clase_today     = '',
                 clase_middleDay = '',
@@ -169,11 +170,16 @@
                 dia        = f_aux.format('DD');
                 mes        = f_aux.locale( settings.locale ).format('MMM').replace('.','');
                 dia_semana = f_aux.locale( settings.locale ).format('dd');
-                
-                f_aux_format == today.format( format ) ? clase_today = 'today'         : clase_today = '';
+                num_dia_semana = f_aux.day();
+
+                f_aux_format == today.format( format ) ? clase_today     = 'today'         : clase_today = '';
                 f_aux_format == middleDay              ? clase_middleDay = 'middleDay' : clase_middleDay = '';
 
-                if( settings.disabledDays.indexOf(f_aux_format) > -1 ){
+                if( 
+                    settings.disabledDays.indexOf(f_aux_format) > -1 ||
+                    settings.disabledWeekDays.indexOf( num_dia_semana ) > -1
+                ){
+                    
                     clase_disabled = 'disabled_day';
                 }
 
@@ -238,6 +244,7 @@
             refDate      : moment().format( 'YYYY-MM-DD' ),
             locale       : 'en',
             disabledDays : [],
+            disabledWeekDays: [],
             data: {},
             dataKeyValues: [],
 
