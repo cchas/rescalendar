@@ -1,3 +1,12 @@
+/*!
+Rescalendar.js - https://cesarchas.es/rescalendar
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+
+Copyright (c) 2019 César Chas
+*/
+
+
+
 ;(function($) {
 
     $.fn.rescalendar = function( options ) {
