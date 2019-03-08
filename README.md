@@ -9,7 +9,6 @@ This is a very simple plugin that shows JSON data in an horizontal calendar.
 
 
 
-
 # Quick and dirty initialization:
 	
 1. Link to the rescalendar.css in the head of your html, and to the rescalendar.js file AFTER linking to jquery.
@@ -25,7 +24,7 @@ This is a very simple plugin that shows JSON data in an horizontal calendar.
 ```
 $('.rescalendar').rescalendar({
 	...your options here (see below)
-	});
+});
 ```
 
 
