@@ -16,39 +16,39 @@
 
 .rescalendar_table .firstColumn{
 	min-width: 60px;
-	background: #eee;
+	background: .eee;
 	text-align: left;
 }
 
-#rescalendar_day_cells td{
+.rescalendar_day_cells td{
 	width: 22px;
 }
 
-#rescalendar_day_cells span{
+.rescalendar_day_cells span{
 	display: block;
 	padding: 0 2px 0px;
 	font-size: 14px;
 	width: 22px;
 }
 
-#rescalendar_day_cells span.day{
+.rescalendar_day_cells span.day{
 	display: block;
 	width: 30px;
 }
 
-#rescalendar_day_cells td.today{
+.rescalendar_day_cells td.today{
 	background: red;
-	color: #fff;
+	color: .fff;
 }
 
-#rescalendar_day_cells td.middleDay{
+.rescalendar_day_cells td.middleDay{
 	outline: 1px solid blue;
 }
 
-#rescalendar_day_cells td:hover{
-	background: #eee;
+.rescalendar_day_cells td:hover{
+	background: .eee;
 	cursor: pointer;
-	color: #000;
+	color: .000;
 }
 
 .hasEvent{

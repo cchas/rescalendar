@@ -142,7 +142,7 @@
 
             }
 
-            targetObj.find('#rescalendar_data_rows').html( html );
+            targetObj.find('.rescalendar_data_rows').html( html );
         }
 
         function setDayCells( targetObj, refDate ){
@@ -184,7 +184,7 @@
 
             }
 
-            targetObj.find('#rescalendar_day_cells').html( html );
+            targetObj.find('.rescalendar_day_cells').html( html );
 
             addTdClickEvent( targetObj );
 
@@ -266,9 +266,9 @@
 
                         '<table class="rescalendar_table">',
                             '<thead>',
-                                '<tr id="rescalendar_day_cells"></tr>',
+                                '<tr class="rescalendar_day_cells"></tr>',
                             '</thead>',
-                            '<tbody id="rescalendar_data_rows">',
+                            '<tbody class="rescalendar_data_rows">',
                                 
                             '</tbody>',
                         '</table>',
