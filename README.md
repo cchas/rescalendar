@@ -24,7 +24,7 @@ This is a very simple plugin that shows JSON data in an horizontal calendar.
 
 ```
 $('.rescalendar').rescalendar({
-	...
+	...your options here (see below)
 	});
 ```
 
@@ -56,7 +56,7 @@ $('.rescalendar').rescalendar({
 	- format: date formats used in the calendar. All the date properties in the data must have this same format. Valid formats as provided by moment.js. Default: 'YYYY-MM-DD'
 	
 
-- Optional
+- Optional:
 	- jumpSize: number of days to move left or right when clicking the '.move_to_yesterday' and 'move_to_tomorrow' buttons: default: 15;
 	- calSize: number of days to display in the calendar: default: 30 ( another day will be added to make the calendar symmetrical);
 	- refDate: the date in which the calendar will be initialized. Default: current date
@@ -66,14 +66,16 @@ $('.rescalendar').rescalendar({
 	- dataKeyField: the name to be displayed on the left of each data row. Every data item must have a name attribute, which musth math an equal dataKeyValue, so class can be added if they match. See examples for more information. Default: []
 	- dataKeyValues: an array with the names to be shown as rows. Default: []
 	- lang. An Object with translations, with 4 possible translations. Overwrite if needed:
+```
 			 {
                 'init_error' : 'Error when initializing',
                 'no_data_error': 'No data found',
                 'no_ref_date'  : 'No refDate found',
                 'today'   : 'Today'
             }
+```
     - data: an array of objects containing the data to be shown in the calendar. Example:
-	
+```	
 		[
             {
                 id: 1, // not used
@@ -99,7 +101,7 @@ $('.rescalendar').rescalendar({
                 customClass: 'greenClass'
             }
         ]
-
+```
 
 
 # Other notes:

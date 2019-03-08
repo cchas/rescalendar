@@ -301,10 +301,8 @@
 
         }, options);
 
-        // Default ref date to today
-        
 
-        var lang = settings.lang;
+
 
         return this.each( function() {
             
@@ -314,7 +312,7 @@
 
             setDayCells( targetObj, settings.refDate );
 
-            // Eventos
+            // Events
             var move_to_last_month = targetObj.find('.move_to_last_month'),
                 move_to_yesterday  = targetObj.find('.move_to_yesterday'),
                 move_to_tomorrow   = targetObj.find('.move_to_tomorrow'),
@@ -356,7 +354,6 @@
             move_to_today.on('click', function(e){
                 
                 var today = moment().startOf('day').format( settings.format );
-
                 targetObj.find('input.refDate').val( today );
 
                 setDayCells( targetObj, today );
