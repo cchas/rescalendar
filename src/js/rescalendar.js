@@ -121,8 +121,7 @@
                     date = arr_dates[j];
 
                     classInSet = dataInSet( data, name, date );
-                    console.log(classInSet, 'classInSet');
-
+                    
                     if( classInSet === false ){
                         
                         content       = ' ';
@@ -160,7 +159,7 @@
                 mes             = '',
                 clase_today     = '',
                 clase_middleDay = '',
-                middleDay       = targetObj.find('#refDate').val(),
+                middleDay       = targetObj.find('input.refDate').val(),
                 blockSize       = settings.jumpSize * 2;
 
             for( var i = 0; i< (blockSize + 1) ; i++){
@@ -202,7 +201,7 @@
             
                 var cellDate = e.currentTarget.attributes['data-cellDate'].value;
 
-                targetObj.find('#refDate').val( cellDate );
+                targetObj.find('input.refDate').val( cellDate );
 
                 setDayCells( targetObj, moment(cellDate, settings.format) );
 
@@ -212,7 +211,7 @@
 
         function change_day( targetObj, action, num_days ){
 
-            var refDate = targetObj.find('#refDate').val(),
+            var refDate = targetObj.find('input.refDate').val(),
                 f_ref = '';
 
             if( action == 'subtract'){
@@ -221,7 +220,7 @@
                 f_ref = moment( refDate, settings.format ).add(num_days, 'days');
             }
             
-            targetObj.find('#refDate').val( f_ref.format( settings.format ) );
+            targetObj.find('input.refDate').val( f_ref.format( settings.format ) );
 
             setDayCells( targetObj, f_ref );
 
@@ -252,16 +251,16 @@
 
                         '<div class="rescalendar_controls">',
 
-                            '<button id="move_to_last_month"> << </button>',
-                            '<button id="move_to_yesterday"> < </button>',
+                            '<button class="move_to_last_month"> << </button>',
+                            '<button class="move_to_yesterday"> < </button>',
 
-                            '<input id="refDate" type="text" value="' + refDate + '" />',
+                            '<input class="refDate" type="text" value="' + refDate + '" />',
                             
-                            '<button id="move_to_tomorrow"> > </button>',
-                            '<button id="move_to_next_month"> >> </button>',
+                            '<button class="move_to_tomorrow"> > </button>',
+                            '<button class="move_to_next_month"> >> </button>',
 
                             '<br>',
-                            '<button id="move_to_today"> ' + settings.lang.today + ' </button>',
+                            '<button class="move_to_today"> ' + settings.lang.today + ' </button>',
 
                         '</div>',
 
@@ -294,12 +293,12 @@
             setDayCells( targetObj, settings.refDate );
 
             // Eventos
-            var move_to_last_month = targetObj.find('#move_to_last_month'),
-                move_to_yesterday  = targetObj.find('#move_to_yesterday'),
-                move_to_tomorrow   = targetObj.find('#move_to_tomorrow'),
-                move_to_next_month = targetObj.find('#move_to_next_month'),
-                move_to_today      = targetObj.find('#move_to_today'),
-                refDate            = targetObj.find('#refDate');
+            var move_to_last_month = targetObj.find('.move_to_last_month'),
+                move_to_yesterday  = targetObj.find('.move_to_yesterday'),
+                move_to_tomorrow   = targetObj.find('.move_to_tomorrow'),
+                move_to_next_month = targetObj.find('.move_to_next_month'),
+                move_to_today      = targetObj.find('.move_to_today'),
+                refDate            = targetObj.find('.refDate');
 
             move_to_last_month.on('click', function(e){
                 
@@ -327,7 +326,7 @@
 
             refDate.on('blur', function(e){
                 
-                var refDate = targetObj.find('#refDate').val();
+                var refDate = targetObj.find('input.refDate').val();
                 setDayCells( targetObj, refDate );
 
             });
@@ -336,7 +335,7 @@
                 
                 var today = moment().startOf('day').format( settings.format );
 
-                targetObj.find('#refDate').val( today );
+                targetObj.find('input.refDate').val( today );
 
                 setDayCells( targetObj, today );
 

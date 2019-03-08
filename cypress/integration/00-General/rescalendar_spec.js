@@ -1,3 +1,5 @@
+
+
 const Fx  = require( '../../support/functions' );
 const Aux = require( '../../support/aux' );
 const moment = require( '../../../src/js/moment' );
@@ -26,7 +28,7 @@ describe( 'REScalendar test', function() {
 
 		it('Has date input defaulting today', function() {
 
-			cy.get('#refDate')
+			cy.get('input.refDate')
 			        .should('be.visible')
 			        .and('have.value', Fx.hoy() );
 			
@@ -34,12 +36,12 @@ describe( 'REScalendar test', function() {
 
 		it('Has move buttons', function() {
 
-	    	cy.get('#move_to_last_month').should('be.visible');
-	    	cy.get('#move_to_yesterday').should('be.visible');
-	    	cy.get('#move_to_tomorrow').should('be.visible');
-	    	cy.get('#move_to_next_month').should('be.visible');
+	    	cy.get('.move_to_last_month').should('be.visible');
+	    	cy.get('.move_to_yesterday').should('be.visible');
+	    	cy.get('.move_to_tomorrow').should('be.visible');
+	    	cy.get('.move_to_next_month').should('be.visible');
 
-	    	cy.get('#move_to_today').should('be.visible');
+	    	cy.get('.move_to_today').should('be.visible');
 	    	
 	    });
 
@@ -89,7 +91,7 @@ describe( 'REScalendar test', function() {
 
 	    function test_move_days( selector, num_days, action ){
 
-			var refDate = Cypress.$('#refDate').val(),
+			var refDate = Cypress.$('input.refDate').val(),
 				new_day = '';
 
 			if( action == 'add' ){
@@ -103,7 +105,7 @@ describe( 'REScalendar test', function() {
 			cy.get( selector ).click();
 
 			cy.wait( 500 ).then( function(){
-				refDate = Cypress.$('#refDate').val();
+				refDate = Cypress.$('input.refDate').val();
 				expect( refDate ).to.equal( new_day );
 			});
 
@@ -111,37 +113,37 @@ describe( 'REScalendar test', function() {
 
 		it('Moves one day right when clicking on move_to_tomorrow', function(){
 
-			test_move_days('#move_to_tomorrow', 1, 'add');
+			test_move_days('.move_to_tomorrow', 1, 'add');
 
 		});
 
 		it('Moves one day left when clicking on move_to_yesterday', function(){
 
-			test_move_days('#move_to_yesterday', 1, 'subtract');
+			test_move_days('.move_to_yesterday', 1, 'subtract');
 
 		});
 
 		it('Moves 15 days right when clicking on move_to_next_month', function(){
 
-			test_move_days('#move_to_next_month', 15, 'add');
+			test_move_days('.move_to_next_month', 15, 'add');
 
 		});
 
 		it('Moves 15 days left when clicking on move_to_next_month', function(){
 
-			test_move_days('#move_to_last_month', 15, 'subtract');
+			test_move_days('.move_to_last_month', 15, 'subtract');
 
 		});
 
 		it('Moves when clicking on a day', function(){
 
-			var refDate = Cypress.$('#refDate').val(),
+			var refDate = Cypress.$('input.refDate').val(),
 				new_day = moment(refDate, format).add(3, 'days').format(format);
 
 			cy.get('td.day_cell[data-celldate="' + new_day + '"]').click();
 
 			cy.wait( 500 ).then( function(){
-				refDate = Cypress.$('#refDate').val();
+				refDate = Cypress.$('input.refDate').val();
 				expect( refDate ).to.equal( new_day );
 			});
 
@@ -149,18 +151,18 @@ describe( 'REScalendar test', function() {
 
 		it('Moves when changing refDate input', function(){
 
-			var refDate 	 = Cypress.$('#refDate').val(),
+			var refDate 	 = Cypress.$('input.refDate').val(),
 				middleDayVal = '',
 				new_day 	 = moment(refDate, format).add(5, 'days').format( format );
 			
-			cy.get('#refDate')
+			cy.get('input.refDate')
 				.clear()
 				.type(new_day)
 				.blur({force: true});
 
 			cy.wait( 500 ).then( function(){
 				
-				refDate = Cypress.$('#refDate').val();
+				refDate = Cypress.$('input.refDate').val();
 				expect( refDate ).to.equal( new_day );
 
 				middleDayVal = Cypress.$('td.middleDay').attr( 'data-celldate' );				
