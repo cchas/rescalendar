@@ -65,9 +65,6 @@
 
         function dataInSet( data, name, date ){
 
-            // returns the customClass or "" if date in data range and name, false otherwise
-            var returnClass = returnClass || false;
-
             var obj_data = {};
 
             for( var i=0; i < data.length; i++){
@@ -187,7 +184,7 @@
                     settings.disabledWeekDays.indexOf( num_dia_semana ) > -1
                 ){
                     
-                    clase_disabled = 'disabled_day';
+                    clase_disabled = 'disabledDay';
                 }
 
                 html += [
@@ -246,14 +243,15 @@
         var settings = $.extend({
             id           : 'rescalendar',
             format       : 'YYYY-MM-DD',
+            refDate      : moment().format( 'YYYY-MM-DD' ),
             jumpSize     : 15,
             calSize      : 30,
-            refDate      : moment().format( 'YYYY-MM-DD' ),
             locale       : 'en',
             disabledDays : [],
             disabledWeekDays: [],
-            data: {},
+            dataKeyField: 'name',
             dataKeyValues: [],
+            data: {},
 
             lang: {
                 'init_error' : 'Error when initializing',
@@ -266,7 +264,6 @@
                 
                 var id      = targetObj.attr('id'),
                     refDate = settings.refDate ;
-
 
                 return [
 
@@ -370,12 +367,7 @@
 
         });
 
-        
-
-
-        
-
-    } // end plugin
+    } // end rescalendar plugin
 
 
 }(jQuery));

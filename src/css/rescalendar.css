@@ -29,7 +29,7 @@
 	border-radius: 5px;
 }
 
-.rescalendar_day_cells td.disabled_day{
+.rescalendar_day_cells td.disabledDay{
 	color: #aaa;
 	background: #eee;
 }
