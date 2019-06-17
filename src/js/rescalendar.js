@@ -26,6 +26,7 @@ Copyright (c) 2019 César Chas
                       '</div>',
 
                     '</div>'
+                    
             ].join('');
         
         }
@@ -103,6 +104,7 @@ Copyright (c) 2019 César Chas
                 arr_dates     = [],
                 name          = '',
                 content       = '',
+                text          = '',
                 hasEventClass = '',
                 customClass   = '',
                 classInSet    = false,
@@ -119,6 +121,7 @@ Copyright (c) 2019 César Chas
                 content = '';
                 date    = '';
                 name    = dataKeyValues[i];
+                text    = '';
 
                 html += '<tr class="dataRow">';
                 html += '<td class="firstColumn">' + name + '</td>';
@@ -128,12 +131,16 @@ Copyright (c) 2019 César Chas
                     title    = '';
                     date     = arr_dates[j];
                     obj_data = dataInSet( data, name, date );
+
+                    obj_data.text ? 
+                        text = obj_data.text : 
+                        text = '&nbsp;';
                     
                     if( typeof obj_data === 'object' ){
                         
                         if( obj_data.title ){ title = ' title="' + obj_data.title + '" '; }
 
-                        content = '<a href="#" ' + title + '>&nbsp;</a>';
+                        content = '<a href="#" ' + title + '>' + text + '</a>';
                         hasEventClass = 'hasEvent';
                         customClass = obj_data.customClass;
 
@@ -143,6 +150,12 @@ Copyright (c) 2019 César Chas
                         hasEventClass = '';
                         customClass   = '';
                     
+                    }
+
+                    if( obj_data.customAttr ){
+                        $.each(obj_data.customAttr, function(index, value){
+                            strAttr += 'data-' + index + '="' + value + '" '
+                        });
                     }
                     
                     html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + customClass + '">' + content + '</td>';
