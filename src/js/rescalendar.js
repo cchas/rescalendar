@@ -256,17 +256,59 @@ Copyright (c) 2019 César Chas
         function change_day( targetObj, action, num_days ){
 
             var refDate = targetObj.find('input.refDate').val(),
-                f_ref = '';
+                f_ref = '',
+                f_now = moment( refDate, settings.format );
 
             if( action == 'subtract'){
-                f_ref = moment( refDate, settings.format ).subtract(num_days, 'days');    
+                
+                f_ref = f_now.subtract(num_days, 'days');    
+            
+                if( 
+                    f_ref < moment( settings.minDate, settings.format) && 
+                    settings.minDate != ''
+                ){
+
+                    console.log('date out of range min');
+                    return true;
+                }
+
             }else{
-                f_ref = moment( refDate, settings.format ).add(num_days, 'days');
+                
+                if( 
+                    f_ref > moment( settings.maxDate, settings.format) && 
+                    settings.maxDate != ''
+                ){
+                    console.log('date out of range max');
+                    return true;
+                }
+
+                f_ref = f_now.add(num_days, 'days');
             }
+
+            toggle_buttons(targetObj, refDate );
             
             targetObj.find('input.refDate').val( f_ref.format( settings.format ) );
 
             setDayCells( targetObj, f_ref );
+
+        }
+
+        function toggle_buttons(targetObj, refDate){
+
+            targetObj.find('.move_to_last_month').removeAttr('disabled');
+            targetObj.find('.move_to_yesterday').removeAttr('disabled');
+            targetObj.find('.move_to_next_month').removeAttr('disabled');
+            targetObj.find('.move_to_tomorrow').removeAttr('disabled');
+
+            if( refDate == settings.minDate ){
+                targetObj.find('.move_to_last_month').attr('disabled', 'disabled');
+                targetObj.find('.move_to_yesterday').attr('disabled', 'disabled');
+            }
+
+            if( refDate == settings.maxDate ){
+                targetObj.find('.move_to_next_month').attr('disabled', 'disabled');
+                targetObj.find('.move_to_tomorrow').attr('disabled', 'disabled');
+            }
 
         }
 
@@ -343,6 +385,8 @@ Copyright (c) 2019 César Chas
 
             setDayCells( targetObj, settings.refDate );
 
+            toggle_buttons(targetObj, settings.refDate);
+            
             // Events
             var move_to_last_month = targetObj.find('.move_to_last_month'),
                 move_to_yesterday  = targetObj.find('.move_to_yesterday'),
