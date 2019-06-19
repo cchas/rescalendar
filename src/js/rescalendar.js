@@ -428,7 +428,10 @@ Copyright (c) 2019 César Chas
 
             move_to_today.on('click', function(e){
                 
-                setDayCells( targetObj, settings.refDate );
+                var today = moment().add(settings.jumpSize, 'day').format( settings.format );
+                targetObj.find('input.refDate').val( today );
+
+                setDayCells( targetObj, today );
 
             });
 
