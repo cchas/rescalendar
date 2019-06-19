@@ -295,18 +295,21 @@ Copyright (c) 2019 César Chas
 
         function toggle_buttons(targetObj, refDate){
 
+            if( settings.jumpSize == 0 ){
+                targetObj.find('.move_to_last_month').remove();
+                targetObj.find('.move_to_next_month').remove();
+            }
+
             targetObj.find('.move_to_last_month').removeAttr('disabled');
             targetObj.find('.move_to_yesterday').removeAttr('disabled');
             targetObj.find('.move_to_next_month').removeAttr('disabled');
             targetObj.find('.move_to_tomorrow').removeAttr('disabled');
 
             if( refDate == settings.minDate ){
-                targetObj.find('.move_to_last_month').attr('disabled', 'disabled');
                 targetObj.find('.move_to_yesterday').attr('disabled', 'disabled');
             }
 
             if( refDate == settings.maxDate ){
-                targetObj.find('.move_to_next_month').attr('disabled', 'disabled');
                 targetObj.find('.move_to_tomorrow').attr('disabled', 'disabled');
             }
 
@@ -386,7 +389,7 @@ Copyright (c) 2019 César Chas
             setDayCells( targetObj, settings.refDate );
 
             toggle_buttons(targetObj, settings.refDate);
-            
+
             // Events
             var move_to_last_month = targetObj.find('.move_to_last_month'),
                 move_to_yesterday  = targetObj.find('.move_to_yesterday'),
