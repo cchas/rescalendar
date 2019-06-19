@@ -108,7 +108,8 @@ Copyright (c) 2019 César Chas
                 hasEventClass = '',
                 customClass   = '',
                 classInSet    = false,
-                obj_data      = {};
+                obj_data      = {},
+                hoy           = moment( new Date() ).format( settings.format );
 
             targetObj.find('td.day_cell').each( function(index, value){
 
@@ -128,9 +129,12 @@ Copyright (c) 2019 César Chas
                 
                 for( var j=0; j < arr_dates.length; j++ ){
 
+                    strAttr  = '';
                     title    = '';
                     date     = arr_dates[j];
                     obj_data = dataInSet( data, name, date );
+                    clase_today = '';
+                    customClass   = '';
 
                     obj_data.text ? 
                         text = obj_data.text : 
@@ -142,13 +146,15 @@ Copyright (c) 2019 César Chas
 
                         content = '<a href="#" ' + title + '>' + text + '</a>';
                         hasEventClass = 'hasEvent';
-                        customClass = obj_data.customClass;
 
+                        if( obj_data.customClass ){
+                            customClass = obj_data.customClass;    
+                        }
+                        
                     }else{
 
                         content       = ' ';
                         hasEventClass = '';
-                        customClass   = '';
                     
                     }
 
@@ -158,7 +164,10 @@ Copyright (c) 2019 César Chas
                         });
                     }
                     
-                    html += '<td data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + customClass + '">' + content + '</td>';
+                    date == hoy ? clase_today = 'today' : clase_today = '';
+
+                    html += '<td ' + strAttr + ' data-id="' + obj_data.id + '" data-date="' + date + '" data-name="' + name + '" class="data_cell ' + hasEventClass + ' ' + customClass + ' ' + clase_today + '">' + content + '</td>';
+             
                 }
 
                 html += '</tr>';
